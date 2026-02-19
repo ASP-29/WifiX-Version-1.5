@@ -9,3 +9,10 @@ main feature
 3. wifi spam
 4. evil portal (wifi login style and phising)
 5. repeater,but the internet speed is like a snail...
+
+
+
+for html file example..,see /data folder
+
+you have a problem about compiling?? join this group for discussion t.me/X32Project
+

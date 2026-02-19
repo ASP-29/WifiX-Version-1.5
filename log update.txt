@@ -1,0 +1,5 @@
+Rev 1.
+ - Fixing bug from previous version
+ - just an simple update
+Rev 2.
+ - Wrong/correct password always saved to log,previously wrong password not saved

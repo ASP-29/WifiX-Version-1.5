@@ -1,0 +1,143 @@
+<!--- This software is licensed under the MIT License: https://github.com/spacehuhntech/esp8266_deauther -->
+
+<!Doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.8, minimal-ui">
+	<meta name="theme-color" content="#36393E">
+
+	<meta name="description" content="ESP8266 Deauther">
+	<title>WifiX Version 1.5</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="js/site.js"></script>
+	<script src="js/settings.js"></script>
+<script>
+        // Fungsi untuk menampilkan pop-up
+        function showPopup() {
+            document.getElementById("overlay").style.display = "block";
+            document.getElementById("popup").style.display = "block";
+        }
+
+        // Fungsi untuk menutup pop-up
+        function hidePopup() {
+            document.getElementById("overlay").style.display = "none";
+            document.getElementById("popup").style.display = "none";
+        }
+         function showClock() {
+            document.getElementById("clock_overlay").style.display = "block";
+            document.getElementById("clock_popup").style.display = "block";
+        }
+
+        // Fungsi untuk menutup pop-up
+        function hideClock() {
+            document.getElementById("clock_overlay").style.display = "none";
+            document.getElementById("clock_popup").style.display = "none";
+        }
+    </script>
+</head>
+
+<body onload="loadLang()">
+	<nav>
+		<ul class="menu">
+			<li><a href="scan.html" data-translate="scan">Scan</a></li>
+			<li><a href="ssids.html" data-translate="ssids">SSIDs</a></li>
+			<li><a href="attack.html" data-translate="attacks">Attack</a></li>
+			<li><a href="filemanager.html" >FS</a></li>
+			<li><a href="settings.html" data-translate="settings">Settings</a></li>
+		</ul>
+	</nav>
+
+	<div id="status"></div>
+    
+	<div class="container">
+		<div class="row">
+
+			<div class="col-12">
+				<h1 class="header" data-translate="settings">Settings</h1>
+
+				<button
+					onclick="getFile('run?cmd=stopap');alert('Turning off access point now. Restart your Deauther to be able to connect again.')"
+					class="red" data-translate="wifi_off">WiFi off</button>
+				<button onclick="getFile('run?cmd=reset;;save settings')" class="red"
+					data-translate="reset">Reset</button>
+			    <button onclick="showPopup()" class="red">Wifi Repeater</button>
+
+					    <!-- Latar belakang semi-transparan -->
+					    <div id="overlay" class="overlay"></div>
+
+					    <!-- Kotak pop-up -->
+					    <div id="popup" class="popup">
+					        <span class="close-btn" onclick="hidePopup()">&times;</span>
+					        
+					        <form action="/repeater" method="post">
+					        	<h2>Connect To Router</h2>
+					            <label for="SSID" class="red">SSID</label>
+					            <input type="text" name="ssid"><br><br>
+					            <label for="PASS" class="red">PASS</label>
+					            <input type="text" name="pass"><br><br>
+					            
+					            <input type="submit" value="Continue">
+					        </form>
+					    </div>
+		        <button onclick="showClock()" class="red">CLOCK</button>
+
+					    <!-- Latar belakang semi-transparan -->
+					    <div id="clock_overlay" class="overlay"></div>
+
+					    <!-- Kotak pop-up -->
+					    <div id="clock_popup" class="popup">
+					        <span class="close-btn" onclick="hideClock()">&times;</span>
+					        
+					        <form action="/time" align="center" method="post">
+					        	<h2>Setting time & date</h2>
+					            <input type="time" name="time">
+					            <input type="date" name="date"><br><br>
+					            
+					            <input type="submit" value="Continue">
+					        </form>
+					    </div>
+				<button onclick="getFile('run?cmd=reboot')" class="red right" data-translate="reboot">reboot</button>
+
+				<p>
+					<span class="red" data-translate="info_span">INFO:</span><br>
+					<span data-translate="settings_info">
+						- Some settings require a reboot.<br>
+						- Click save to make sure that your changes are applied.<br>
+					</span>
+					<span data-translate="info_disclaimer">In case of an unexpected error, please reload the site and
+						look at the serial monitor for further debugging.</span><br>
+				</p>
+								<p>
+					<span class="red" >Device Activation:</span><br>
+					<span >
+						1. Click <a href="order.html" >>HERE<</a> to open activation page<br>
+						2. Contact me on Instagram,Telegram,or facebook if you want to support me :) (link in video description or about channel).<br>
+						3. fill in your name, wifi ssid and password, and click Continue (This step requires an active internet connection).<br>
+						4. Notify me via social media when you have sent a request<br>
+						5. Done...,wait for response from the server an confirmation to active the device<br>
+						6. The device will restart automatically after the process is successful, marked with a slow led blink (success), a fast led blink (failed).<br>
+					</span>
+					
+				</p>
+
+				<button onclick="save()" data-translate="save">save</button>
+				<button onclick="load()" class="right" data-translate="reload">reload</button>
+			</div>
+		</div>
+
+		<div id="settingsList"></div>
+	</div>
+	
+		<footer>
+		<span id="version">WifiX Version 1.5</span>
+		<br>
+				<span id="version">Based on Deauther 2.6</span>
+		<br>
+		<a href="https://www.youtube.com/@asp-29blackhat18" target="_blank">BlackHat</a> | <a href="https://www.youtube.com/@ASP29Tech" target="_blank">ASP-29</a> | <a href="http://deauther.maltronics.com" target="_blank">Wiki</a> | <a href="info.html">Credits</a>
+	</footer>
+</body>
+
+</html>

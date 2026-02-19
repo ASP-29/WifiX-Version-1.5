@@ -1,0 +1,172 @@
+<!Doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.8, minimal-ui">
+	<meta name="theme-color" content="#36393E">
+
+	<meta name="description" content="ESP8266 Deauther">
+	<title>WifiX Version 1.5</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="js/site.js"></script>
+	<script>
+		           const xmlhttp = new XMLHttpRequest();
+								xmlhttp.onload = function() {
+								  const myObj = JSON.parse(this.responseText);
+								  document.getElementById("total_spiffs").innerHTML = myObj.total;
+								  document.getElementById("used_spiffs").innerHTML = myObj.used;
+								  document.getElementById("free_spiffs").innerHTML = myObj.free;
+								  document.getElementById("eviltwin_path").innerHTML = myObj.eviltwin;
+								  document.getElementById("pishing_path").innerHTML = myObj.pishing;
+								  reloadlist();
+								};
+								xmlhttp.open("GET", "/filemanager.json");
+								xmlhttp.send();
+               function reloadlist() 
+                     {
+                        
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.open("GET", "/reloadlist", true);
+                        xhttp.send();
+                        getlog();
+                        getfile();
+                      }
+                function getlog() 
+                      {
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function() {
+                          if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById("log").innerHTML = this.responseText;
+                          }
+                        };
+                        xhttp.open("GET", "log", true);
+                        xhttp.send();
+                      }
+                     
+                  function getfile() 
+                      {
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function() {
+                          if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById("filelist").innerHTML = this.responseText;
+                          }
+                        };
+                        xhttp.open("GET", "filelist", true);
+                        xhttp.send();
+                      }
+                   
+                </script>
+
+</head>
+
+<body onload="loadLang()">
+	<nav>
+		<ul class="menu">
+			<li><a href="scan.html" data-translate="scan">Scan</a></li>
+			<li><a href="ssids.html" data-translate="ssids">SSIDs</a></li>
+			<li><a href="attack.html" data-translate="attacks">Attack</a></li>
+			<li><a href="filemanager.html" >FS</a></li>
+			<li><a href="settings.html" data-translate="settings">Settings</a></li>
+		</ul>
+	</nav>
+
+	<div id="status"></div>
+
+
+    <div class="container">
+		<div class="row">
+			<div class="col-12">
+                                  <h1 class="header" >File Manager</h1>
+                                  <form method='post' enctype='multipart/form-data'><input type='file' name='name'><input class='button' type='submit' value='Upload'></form>
+                                  <p class="right">
+
+					<button onclick="reloadlist() ;" data-translate="reload">reload</button>
+
+				</p>
+                                 <br>
+                
+				<p>
+					<span class="red" data-translate="info_span">INFO: </span><br>
+					<span >
+						<span>Total: <span id="total_spiffs"></span> kb,</span>
+						<span>Used: <span id="used_spiffs"></span> kb,</span>
+						<span>Free: <span id="free_spiffs"></span> kb</span>
+					</span>
+					
+				</p><br>
+				
+					<form action='/websetting' method='POST'> <span class="red-normal">PATH: </span><br>
+					          <div class="row"> 
+                    <div class="col-6">
+                    <label> <a href='/log' target='_blank'>Click here to open Log</a></label>
+                    </div>
+                    </div>
+                    
+                    <div class="row">
+							      <div class="col-6"><label> <a href='/eviltwinprev' target='_blank'>Evil Twin</a></label>
+							      </div>
+							      <div class="col-6" id="eviltwin_path">
+							      	<input type='text' name='evilpath' value='/contoh.html'>
+						      	</div>
+				            </div>
+ 
+				            <div class="row">
+							      <div class="col-6">	<label> <a href='/pishingprev' target='_blank'>Pishing  </a></label>
+							      </div>
+							      <div class="col-6" id="pishing_path">
+							      <input type='text' name='pishingpath' value='/contoh.html'>
+							      </div>
+				            </div>
+				            <input  type ='submit' value ='Save'></form>
+				<br>
+				<h2>Log</h2>
+				<table id='log'>
+					<tr>
+                      <td> <label> lognya disini</label></td>
+			        </tr>
+			        <tr>
+                      <td> <label> lognya disini</label></td>
+			        </tr>
+
+					
+				</table>
+				<h2>File List</h2>
+				<table id='filelist'>
+					<tr>
+					  <td><form action='/delete' methode='post'>
+					  <input type='submit' value='delete'></input><input name='filename' type='hidden' value='" + dir.fileName() +"' ></input> </form></td>
+                      <td> dir.fileName() </td>
+                      <td> size_/1000 + kb</td>
+			        </tr>
+			        <tr>
+					  <td><form action='/delete' methode='post'>
+					  <input type='submit' value='delete'><input name='filename' type='hidden' value='" + dir.fileName() +"' </input> </form></td>
+                      <td> dir.fileName() </td>
+                      <td> size_/1000 + kb</td>
+			        </tr>
+			        <tr>
+					  <td><form action='/delete' methode='post'>
+					  <input type='submit' value='delete'></td><input name='filename' type='hidden' value='" + dir.fileName() +"' </input> </form></td>
+                      <td> dir.fileName() </td>
+                      <td> size_/1000 + kb</td>
+			        </tr>
+					
+				</table>
+			</div>
+		</div>
+
+
+	</div>
+
+		<footer>
+		<span id="version">WifiX Version 1.5</span>
+		<br>
+				<span id="version">Based on Deauther 2.6</span>
+		<br>
+		<a href="https://www.youtube.com/@asp-29blackhat18" target="_blank">BlackHat</a> | <a href="https://www.youtube.com/@ASP29Tech" target="_blank">ASP-29</a> | <a href="http://deauther.maltronics.com" target="_blank">Wiki</a> | <a href="info.html">Credits</a>
+	</footer>
+</body>
+
+</html>

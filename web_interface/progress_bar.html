@@ -1,0 +1,111 @@
+<!--- This software is licensed under the MIT License: https://github.com/spacehuhntech/esp8266_deauther -->
+
+<!Doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.8, minimal-ui">
+	<meta name="theme-color" content="#36393E">
+
+	<meta name="description" content="ESP8266 Deauther">
+	<title>WifiX Version 1.5</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<style type="text/css">
+		#myProgress {
+		  width: 100%;
+		  background-color: grey;
+		}
+
+		#myBar {
+		  width: 10%;
+		  height: 30px;
+		  background-color: red;
+		  text-align: center; /* To center it horizontally (if you want) */
+		  line-height: 30px; /* To center it vertically */
+		  color: white;
+		}
+	</style>
+	<script type="text/javascript">
+		 var i = 0;
+function move() {
+  if (i == 0) {
+    i = 1;
+    var elem = document.getElementById("myBar");
+    var width = 0;
+    var id = setInterval(frame, 150);
+    function frame() {
+      if (width >= 100) {
+        clearInterval(id);
+        check();
+        i = 0;
+      } else {
+        width++;
+        elem.style.width = width + "%";
+        elem.innerHTML = width + "%";
+      }
+    }
+  }
+} 
+    function check() 
+                      {
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function() {
+                          if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById("status").innerHTML = this.responseText;
+                          }
+                        };
+                        xhttp.open("GET", "connection_status", true);
+                        xhttp.send();
+                      }
+	</script>
+
+</head>
+
+<body onload="move()">
+	<nav>
+		<ul class="menu">
+			<li><a href="scan.html" data-translate="scan">Scan</a></li>
+			<li><a href="ssids.html" data-translate="ssids">SSIDs</a></li>
+			<li><a href="attack.html" data-translate="attacks">Attack</a></li>
+			<li><a href="filemanager.html" >FS</a></li>
+			<li><a href="settings.html" data-translate="settings">Settings</a></li>
+		</ul>
+	</nav>
+
+	<div id="status"></div>
+    
+	<div class="container">
+		<div class="row">
+
+			<div class="col-12">
+				<h1 class="header" >Processing</h1>
+
+				<div id="myProgress">
+				  <div id="myBar">0%</div>
+				</div>
+
+			</div>
+		</div>
+
+		
+		<footer>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<span id="version">WifiX Version 1.5</span>
+		<br>
+				<span id="version">Based on Deauther 2.6</span>
+		<br>
+		<a href="https://www.youtube.com/@asp-29blackhat18" target="_blank">BlackHat</a> | <a href="https://www.youtube.com/@ASP29Tech" target="_blank">ASP-29</a> | <a href="http://deauther.maltronics.com" target="_blank">Wiki</a> | <a href="info.html">Credits</a>
+	</footer>
+</body>
+
+</html>
